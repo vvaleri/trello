@@ -31,4 +31,8 @@ const Text = styled.div`
   }
 `;
 
-export { Main, Title, Head, Text };
+const Columns = styled.div`
+  display: flex;
+`;
+
+export { Main, Title, Head, Text, Columns };
