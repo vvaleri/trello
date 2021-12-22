@@ -14,6 +14,7 @@ const Head = styled.div`
   display: flex;
   justify-content: space-between;
   padding-bottom: 10px;
+  margin-bottom: 10px;
   border-bottom: 1px solid #979797;
 `;
 
@@ -33,6 +34,7 @@ const Text = styled.div`
 
 const Columns = styled.div`
   display: flex;
+  
 `;
 
 export { Main, Title, Head, Text, Columns };
