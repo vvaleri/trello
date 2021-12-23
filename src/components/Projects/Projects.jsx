@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { nanoid } from 'nanoid';
 import { Button } from '../UI/Button/Button';
 import { Board } from '../Board/Board';
 import { Main, Title, Head, Text, Columns } from './projects.style';
@@ -23,7 +22,7 @@ export const Projects = () => {
         {
         defaultBoard.boardsId.map(item => {
           const column = defaultBoard.boards[item];
-          return <Board key={nanoid()} column={column} />;
+          return <Board key={item} column={column} />;
         })
         }
       </Columns>

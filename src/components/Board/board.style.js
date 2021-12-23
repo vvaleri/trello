@@ -23,6 +23,12 @@ const Title = styled.div`
   
 `;
 
+const Content = styled.ul`
+  display: flex;
+  flex-direction: column;
+  list-style: none;
+`;
+
 const Buttons = styled.div`
   display: flex;
 `;
@@ -30,8 +36,8 @@ const Buttons = styled.div`
 const Footer = styled.div`
   display: flex;
   justify-content: center;
-  padding-top: 10px;
+  padding-top: 15px;
   padding-bottom: 10px;
 `;
 
-export { Container, Head, Title, Buttons, Footer };
+export { Container, Head, Title, Content, Buttons, Footer };
