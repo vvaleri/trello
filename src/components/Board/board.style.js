@@ -36,6 +36,7 @@ const Buttons = styled.div`
 const Footer = styled.div`
   display: flex;
   justify-content: center;
+  position: relative;
   padding-top: 15px;
   padding-bottom: 10px;
 `;

@@ -40,9 +40,7 @@ const MainButton = styled.button`
     
       }
     }
-
   `}
-
 `;
 
 export { MainButton };
