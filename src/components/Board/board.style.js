@@ -29,10 +29,6 @@ const Content = styled.ul`
   list-style: none;
 `;
 
-const Buttons = styled.div`
-  display: flex;
-`;
-
 const Footer = styled.div`
   display: flex;
   justify-content: center;
@@ -41,4 +37,4 @@ const Footer = styled.div`
   padding-bottom: 10px;
 `;
 
-export { Container, Head, Title, Content, Buttons, Footer };
+export { Container, Head, Title, Content, Footer };

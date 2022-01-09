@@ -32,9 +32,13 @@ const Text = styled.div`
   }
 `;
 
+const Buttons = styled.div`
+  position: relative;
+`;
+
 const Columns = styled.div`
   display: flex;
   
 `;
 
-export { Main, Title, Head, Text, Columns };
+export { Main, Title, Head, Text, Buttons, Columns };

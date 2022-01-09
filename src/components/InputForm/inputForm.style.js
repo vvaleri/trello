@@ -1,27 +1,34 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 const Container = styled.div`
   position: absolute;
   width: 100%;
   top: 10px;
-
   max-height: 0px;
   overflow: hidden;
-  transition: max-height 0.4s cubic-bezier(0.77, 0, 0.17, 1);
+  transition: max-height 0.3s cubic-bezier(0.77, 0, 0.17, 1);
   transform: translateZ(0);
   background-color: #F5F5F5;
 
   &.visible {
     max-height: 130px;
     overflow: visible;
+
+    form {
+      opacity: 1;
+    }
   }
+
+  ${props => props.main && css`
+    top: 0;
+  `}
 `;
 
 const Form = styled.form`
   padding: 10px;
-  /* background-color: #F5F5F5; */
   border-radius: 4px;
-
+  opacity: 0;
+  transition: opacity 0.4s cubic-bezier(0.77, 0, 0.17, 1);
 `;
 
 const Textarea = styled.textarea`

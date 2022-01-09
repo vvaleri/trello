@@ -3,32 +3,44 @@ import { nanoid } from 'nanoid';
 import { Button } from '../UI/Button/Button';
 import { Container, Form, Textarea, Buttons } from './inputForm.style';
 import Close from '../../assets/img/icon-close.svg';
+import TitleImg from '../../assets/img/icon-column-1.svg';
 
-export const InputForm = ({ taskForm, setTaskForm, create }) => {
-  const [textTask, setTextTask] = useState('');
+export const InputForm = ({ visible, setVisible, createTask, createBoard, type, ...props }) => {
+  const [text, setText] = useState('');
 
-  const createTask = e => {
+  const handleForm = e => {
     e.preventDefault();
-    const newTask = {
-      id: nanoid(),
-      text: textTask
-    };
-    create(newTask);
-    setTextTask('');
+    if (type === 'task') {
+      const newTask = {
+        id: nanoid(),
+        text
+      };
+      createTask(newTask);
+    }
+    if (type === 'board') {
+      const newBoard = {
+        id: nanoid(),
+        src: TitleImg,
+        title: text,
+        taskCards: []
+      };
+      createBoard(newBoard);
+    }
+    setText('');
   };
 
   return (
-    <Container className={taskForm ? 'visible' : ''}>
-      <Form onSubmit={createTask}>
+    <Container className={visible ? 'visible' : ''} {...props}>
+      <Form onSubmit={handleForm}>
         <Textarea
-          value={textTask}
-          onChange={e => setTextTask(e.target.value)}
-          placeholder="Введите текст задачи"
+          value={text}
+          onChange={e => setText(e.target.value)}
+          placeholder={type === 'board' ? 'Введите название столбца' : 'Введите текст задачи'}
           required
         />
         <Buttons>
-          <Button main>Добавить задачу</Button>
-          <Button type="button" onClick={() => setTaskForm(false)}>
+          <Button main>{type === 'board' ? 'Добавить' : 'Добавить задачу'}</Button>
+          <Button type="button" onClick={() => setVisible(false)}>
             <img src={Close} alt="Отмена" />
           </Button>
         </Buttons>

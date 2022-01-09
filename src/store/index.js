@@ -47,6 +47,15 @@ export const taskReducer = (state, action) => {
         ...state,
         boards: { ...state.boards, [boardId]: column }
       }; }
+    case 'ADD BOARD': {
+      const { newBoard } = action.payload;
+      const newBoardId = newBoard.id;
+      return {
+        ...state,
+        boardsId: [...state.boardsId, newBoardId],
+        boards: { ...state.boards, [newBoardId]: newBoard }
+      };
+    }
     default:
       return state;
   }

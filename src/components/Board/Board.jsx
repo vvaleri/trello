@@ -3,7 +3,7 @@ import { Task } from '../Task/Task';
 import { Button } from '../UI/Button/Button';
 import { InputForm } from '../InputForm/InputForm';
 import { StoreContext } from '../../context';
-import { Container, Head, Title, Content, Buttons, Footer } from './board.style';
+import { Container, Head, Title, Content, Footer } from './board.style';
 import Delete from '../../assets/img/icon-delete.svg';
 import Add from '../../assets/img/icon-add.svg';
 
@@ -29,11 +29,9 @@ export const Board = ({ column }) => {
           <img src={column.src} alt="icon" />
           {column.title}
         </Title>
-        <Buttons>
-          <Button>
-            <img src={Delete} alt="удалить" />
-          </Button>
-        </Buttons>
+        <Button>
+          <img src={Delete} alt="удалить" />
+        </Button>
       </Head>
       <Content>
         {
@@ -50,9 +48,10 @@ export const Board = ({ column }) => {
           <img src={Add} alt="добавить задачу" />
         </Button>
         <InputForm
-          taskForm={taskForm}
-          setTaskForm={setTaskForm}
-          create={addTask}
+          type="task"
+          visible={taskForm}
+          setVisible={setTaskForm}
+          createTask={addTask}
         />
       </Footer>
     </Container>
