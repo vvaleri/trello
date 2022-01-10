@@ -2,7 +2,7 @@ import React, { useReducer, useMemo, useState } from 'react';
 import { Button } from '../UI/Button/Button';
 import { Board } from '../Board/Board';
 import { InputForm } from '../InputForm/InputForm';
-import { Main, Title, Head, Text, Buttons, Columns } from './projects.style';
+import { Main, Title, Head, Text, Buttons, Columns, Tip } from './projects.style';
 import { StoreContext } from '../../context';
 import Waves from '../../assets/img/icon-title.svg';
 import { initialState, taskReducer } from '../../store';
@@ -19,6 +19,13 @@ export const Projects = () => {
       payload: { newBoard }
     });
     setBoardForm(false);
+  };
+
+  const removeBoard = id => {
+    dispatch({
+      type: 'DELETE BOARD',
+      payload: id
+    });
   };
 
   return (
@@ -49,10 +56,12 @@ export const Projects = () => {
         </Head>
         <Columns>
           {
-          state.boardsId.map(item => {
-            const column = state.boards[item];
-            return <Board key={item} column={column} />;
-          })
+          state.boardsId.length
+            ? state.boardsId.map(item => {
+              const column = state.boards[item];
+              return <Board key={item} column={column} remove={removeBoard} />;
+            })
+            : <Tip>Здесь будут отображаться доски с задачами</Tip>
         }
         </Columns>
       </Main>

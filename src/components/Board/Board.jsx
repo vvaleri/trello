@@ -7,7 +7,7 @@ import { Container, Head, Title, Content, Footer } from './board.style';
 import Delete from '../../assets/img/icon-delete.svg';
 import Add from '../../assets/img/icon-add.svg';
 
-export const Board = ({ column }) => {
+export const Board = ({ column, remove }) => {
   const [taskForm, setTaskForm] = useState(false);
 
   const openForm = () => setTaskForm(true);
@@ -29,7 +29,7 @@ export const Board = ({ column }) => {
           <img src={column.src} alt="icon" />
           {column.title}
         </Title>
-        <Button>
+        <Button onClick={() => remove(column.id)}>
           <img src={Delete} alt="удалить" />
         </Button>
       </Head>

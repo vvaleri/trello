@@ -38,7 +38,12 @@ const Buttons = styled.div`
 
 const Columns = styled.div`
   display: flex;
-  
 `;
 
-export { Main, Title, Head, Text, Buttons, Columns };
+const Tip = styled.p`
+  width: 100%;
+  text-align: center;
+  color: #a4a0a0;
+`;
+
+export { Main, Title, Head, Text, Buttons, Columns, Tip };

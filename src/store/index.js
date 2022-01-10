@@ -56,6 +56,11 @@ export const taskReducer = (state, action) => {
         boards: { ...state.boards, [newBoardId]: newBoard }
       };
     }
+    case 'DELETE BOARD':
+      return {
+        ...state,
+        boardsId: state.boardsId.filter(item => item !== action.payload)
+      };
     default:
       return state;
   }
