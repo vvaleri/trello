@@ -9,6 +9,7 @@ const Container = styled.div`
   transition: max-height 0.3s cubic-bezier(0.77, 0, 0.17, 1);
   transform: translateZ(0);
   background-color: #F5F5F5;
+  z-index: 10;
 
   &.visible {
     max-height: 130px;

@@ -3,6 +3,18 @@ import styled from 'styled-components';
 const Container = styled.div`
   margin-right: 40px;
   flex: 0 0 290px;
+
+  &.done {
+    p {
+      text-decoration: line-through;
+      text-decoration-color: #3D4044;
+      color: #99ADD9;
+    }
+
+    span {
+      color: #B0B1B2;
+    }
+  }
 `;
 
 const Head = styled.div`

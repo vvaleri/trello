@@ -23,7 +23,7 @@ export const Board = ({ column, remove }) => {
   };
 
   return (
-    <Container>
+    <Container className={column.id === 'board-3' ? 'done' : ''}>
       <Head>
         <Title>
           <img src={column.src} alt="icon" />

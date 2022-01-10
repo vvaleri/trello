@@ -38,6 +38,20 @@ const Buttons = styled.div`
 
 const Columns = styled.div`
   display: flex;
+  padding-bottom: 30px;
+  overflow-x: auto;
+  scrollbar-color: #3E65BE #B0B1B2;
+
+  ::-webkit-scrollbar {
+    height: 12px;
+    width: 12px;
+    background-color: #B0B1B2;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    border-radius: 5px;
+    background-color: #3E65BE;
+  }
 `;
 
 const Tip = styled.p`
