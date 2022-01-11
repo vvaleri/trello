@@ -1,4 +1,5 @@
 import React, { useState, useContext } from 'react';
+import { Droppable } from 'react-beautiful-dnd';
 import { Task } from '../Task/Task';
 import { Button } from '../UI/Button/Button';
 import { InputForm } from '../InputForm/InputForm';
@@ -33,13 +34,23 @@ export const Board = ({ column, remove }) => {
           <img src={Delete} alt="удалить" />
         </Button>
       </Head>
-      <Content>
-        {
-      column.taskCards.map(card => (
-        <Task key={card.id} card={card} />
-      ))
-      }
-      </Content>
+
+      <Droppable droppableId={column.id}>
+        {provided => (
+          <Content
+            ref={provided.innerRef}
+            {...provided.droppableProps}
+          >
+            {
+              column.taskCards.map((card, index) => (
+                <Task key={card.id} card={card} index={index} />
+              ))
+            }
+            {provided.placeholder}
+          </Content>
+        )}
+      </Droppable>
+
       <Footer>
         <Button
           grey

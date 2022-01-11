@@ -1,4 +1,5 @@
 import React, { useReducer, useMemo, useState } from 'react';
+import { DragDropContext } from 'react-beautiful-dnd';
 import { Button } from '../UI/Button/Button';
 import { Board } from '../Board/Board';
 import { InputForm } from '../InputForm/InputForm';
@@ -6,6 +7,7 @@ import { Main, Title, Head, Text, Buttons, Columns, Tip } from './projects.style
 import { StoreContext } from '../../context';
 import Waves from '../../assets/img/icon-title.svg';
 import { initialState, taskReducer } from '../../store';
+import { moveTask } from '../../dnd';
 
 export const Projects = () => {
   const [boardForm, setBoardForm] = useState(false);
@@ -26,6 +28,18 @@ export const Projects = () => {
       type: 'DELETE BOARD',
       payload: id
     });
+  };
+
+  const onDragEnd = result => {
+    const { destination, source, draggableId } = result;
+    const newArrTask = moveTask(state, destination, source, draggableId);
+
+    dispatch({
+      type: 'MOVE TASK',
+      payload: { boardId: source.droppableId, newArrTask }
+    });
+
+    // console.log('destination', destination, 'source', source, draggableId);
   };
 
   return (
@@ -55,14 +69,16 @@ export const Projects = () => {
           </Buttons>
         </Head>
         <Columns>
-          {
-          state.boardsId.length
-            ? state.boardsId.map(item => {
-              const column = state.boards[item];
-              return <Board key={item} column={column} remove={removeBoard} />;
-            })
-            : <Tip>Здесь будут отображаться доски с задачами</Tip>
+          <DragDropContext onDragEnd={onDragEnd}>
+            {
+            state.boardsId.length
+              ? state.boardsId.map(item => {
+                const column = state.boards[item];
+                return <Board key={item} column={column} remove={removeBoard} />;
+              })
+              : <Tip>Здесь будут отображаться доски с задачами</Tip>
         }
+          </DragDropContext>
         </Columns>
       </Main>
     </StoreContext.Provider>
