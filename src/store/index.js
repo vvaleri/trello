@@ -1,4 +1,3 @@
-import React, { useReducer } from 'react';
 import Backlog from '../assets/img/icon-column-1.svg';
 import InProgress from '../assets/img/icon-column-2.svg';
 import Done from '../assets/img/icon-column-3.svg';
@@ -97,58 +96,4 @@ export const initialState = {
   },
 
   boardsId: ['board-1', 'board-2', 'board-3', 'board-4']
-
-};
-
-export const taskReducer = (state, action) => {
-  switch (action.type) {
-    case 'ADD TASK': {
-      const { boardId, newTask } = action.payload;
-      const column = state.boards[boardId];
-      column.taskCards = [...column.taskCards, newTask];
-      return {
-        ...state,
-        boards: { ...state.boards, [boardId]: column }
-      }; }
-    case 'ADD BOARD': {
-      const { newBoard } = action.payload;
-      const newBoardId = newBoard.id;
-      return {
-        ...state,
-        boardsId: [...state.boardsId, newBoardId],
-        boards: { ...state.boards, [newBoardId]: newBoard }
-      };
-    }
-    case 'DELETE BOARD':
-      return {
-        ...state,
-        boardsId: state.boardsId.filter(item => item !== action.payload)
-      };
-    case 'MOVE_TASK': {
-      const { sourceBoard, sourceTaskArr } = action.payload;
-      sourceBoard.taskCards = [...sourceTaskArr];
-      return {
-        ...state,
-        boards: { ...state.boards, [sourceBoard.id]: sourceBoard }
-      };
-    }
-    case 'MOVE_TASK_BETWEEN_BOARDS': {
-      const { sourceBoard,
-        destinationBoard,
-        sourceTaskArr,
-        destinationTaskArr } = action.payload;
-      sourceBoard.taskCards = [...sourceTaskArr];
-      destinationBoard.taskCards = [...destinationTaskArr];
-      return {
-        ...state,
-        boards: {
-          ...state.boards,
-          [sourceBoard.id]: sourceBoard,
-          [destinationBoard.id]: destinationBoard
-        }
-      };
-    }
-    default:
-      return state;
-  }
 };

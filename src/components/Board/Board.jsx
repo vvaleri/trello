@@ -4,6 +4,7 @@ import { Task } from '../Task/Task';
 import { Button } from '../UI/Button/Button';
 import { InputForm } from '../InputForm/InputForm';
 import { StoreContext } from '../../context';
+import { addTask } from '../../store/actions';
 import { Container, Head, Title, Content, Footer } from './board.style';
 import Delete from '../../assets/img/icon-delete.svg';
 import Add from '../../assets/img/icon-add.svg';
@@ -15,11 +16,8 @@ export const Board = ({ column, remove }) => {
 
   const { dispatch } = useContext(StoreContext);
 
-  const addTask = newTask => {
-    dispatch({
-      type: 'ADD TASK',
-      payload: { boardId: column.id, newTask }
-    });
+  const createTask = newTask => {
+    dispatch(addTask({ boardId: column.id, newTask }));
     setTaskForm(false);
   };
 
@@ -52,17 +50,14 @@ export const Board = ({ column, remove }) => {
       </Droppable>
 
       <Footer>
-        <Button
-          grey
-          onClick={openForm}
-        >
+        <Button grey onClick={openForm}>
           <img src={Add} alt="добавить задачу" />
         </Button>
         <InputForm
           type="task"
           visible={taskForm}
           setVisible={setTaskForm}
-          createTask={addTask}
+          createTask={createTask}
         />
       </Footer>
     </Container>

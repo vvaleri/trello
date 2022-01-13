@@ -3,11 +3,13 @@ import { DragDropContext } from 'react-beautiful-dnd';
 import { Button } from '../UI/Button/Button';
 import { Board } from '../Board/Board';
 import { InputForm } from '../InputForm/InputForm';
-import { Main, Title, Head, Text, Buttons, Columns, Tip } from './projects.style';
+import { initialState } from '../../store';
 import { StoreContext } from '../../context';
+import { taskReducer } from '../../store/reducer';
+import { handleDragnDrop } from '../../dnd';
+import { addBoard, deleteBoard } from '../../store/actions';
+import { Main, Title, Head, Text, Buttons, Columns, Tip } from './projects.style';
 import Waves from '../../assets/img/icon-title.svg';
-import { initialState, taskReducer } from '../../store';
-// import { moveTask } from '../../dnd';
 
 export const Projects = () => {
   const [boardForm, setBoardForm] = useState(false);
@@ -15,58 +17,18 @@ export const Projects = () => {
   const [state, dispatch] = useReducer(taskReducer, initialState);
   const stateValue = useMemo(() => ({ dispatch, state }), []);
 
-  const addBoard = newBoard => {
-    dispatch({
-      type: 'ADD BOARD',
-      payload: { newBoard }
-    });
+  const createBoard = newBoard => {
+    dispatch(addBoard({ newBoard }));
     setBoardForm(false);
   };
 
   const removeBoard = id => {
-    dispatch({
-      type: 'DELETE BOARD',
-      payload: id
-    });
+    dispatch(deleteBoard(id));
   };
 
   const onDragEnd = result => {
     const { destination, source, draggableId } = result;
-    // const newArrTask = moveTask(state, destination, source, draggableId);
-    if (!destination) {
-      return;
-    }
-
-    if (destination.droppableId === source.droppableId
-          && destination.index === source.index) {
-      return;
-    }
-
-    const sourceBoard = state.boards[source.droppableId];
-    const destinationBoard = state.boards[destination.droppableId];
-
-    const sourceTaskArr = Array.from(sourceBoard.taskCards);
-    const movedTask = sourceTaskArr.filter(task => task.id === draggableId)[0];
-
-    if (sourceBoard === destinationBoard) {
-      sourceTaskArr.splice(source.index, 1);
-      sourceTaskArr.splice(destination.index, 0, movedTask);
-
-      dispatch({
-        type: 'MOVE_TASK',
-        payload: { sourceBoard, sourceTaskArr }
-      });
-    } else {
-      const destinationTaskArr = Array.from(destinationBoard.taskCards);
-      sourceTaskArr.splice(source.index, 1);
-
-      destinationTaskArr.splice(destination.index, 0, movedTask);
-
-      dispatch({
-        type: 'MOVE_TASK_BETWEEN_BOARDS',
-        payload: { sourceBoard, destinationBoard, sourceTaskArr, destinationTaskArr }
-      });
-    }
+    handleDragnDrop(state, dispatch, destination, source, draggableId);
   };
 
   return (
@@ -91,7 +53,7 @@ export const Projects = () => {
               type="board"
               visible={boardForm}
               setVisible={setBoardForm}
-              createBoard={addBoard}
+              createBoard={createBoard}
             />
           </Buttons>
         </Head>

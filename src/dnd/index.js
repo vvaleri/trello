@@ -1,16 +1,41 @@
-// export const moveTask = (state, destination, source, draggableId) => {
-//   if (!destination) {
-//     return;
-//   }
+import { moveTask, moveTaskBetweenBoards } from '../store/actions';
 
-//   if (destination.droppableId === source.droppableId
-//         && destination.index === source.index) {
-//     return;
-//   }
+export const handleDragnDrop = (
+  state,
+  dispatch,
+  destination,
+  source,
+  draggableId
+) => {
+  if (!destination) {
+    return;
+  }
 
-//   const board = state.boards[source.droppableId];
-//   const newArrTask = Array.from(board.taskCards);
-//   const movedTask = newArrTask.filter(task => task.id === draggableId)[0];
-//   newArrTask.splice(source.index, 1);
-//   newArrTask.splice(destination.index, 0, movedTask);
-// };
+  if (destination.droppableId === source.droppableId
+        && destination.index === source.index) {
+    return;
+  }
+
+  const sourceBoard = state.boards[source.droppableId];
+  const destinationBoard = state.boards[destination.droppableId];
+
+  const sourceTaskArr = Array.from(sourceBoard.taskCards);
+  const movedTask = sourceTaskArr.filter(task => task.id === draggableId)[0];
+
+  if (sourceBoard === destinationBoard) {
+    sourceTaskArr.splice(source.index, 1);
+    sourceTaskArr.splice(destination.index, 0, movedTask);
+
+    dispatch(moveTask({ sourceBoard, sourceTaskArr }));
+  } else {
+    const destinationTaskArr = Array.from(destinationBoard.taskCards);
+    sourceTaskArr.splice(source.index, 1);
+
+    destinationTaskArr.splice(destination.index, 0, movedTask);
+
+    dispatch(moveTaskBetweenBoards({ sourceBoard,
+      destinationBoard,
+      sourceTaskArr,
+      destinationTaskArr }));
+  }
+};
