@@ -124,13 +124,28 @@ export const taskReducer = (state, action) => {
         ...state,
         boardsId: state.boardsId.filter(item => item !== action.payload)
       };
-    case 'MOVE TASK': {
-      const { boardId, newArrTask } = action.payload;
-      const board = state.boards[boardId];
-      board.taskCards = [...newArrTask];
+    case 'MOVE_TASK': {
+      const { sourceBoard, sourceTaskArr } = action.payload;
+      sourceBoard.taskCards = [...sourceTaskArr];
       return {
         ...state,
-        boards: { ...state.boards, [boardId]: board }
+        boards: { ...state.boards, [sourceBoard.id]: sourceBoard }
+      };
+    }
+    case 'MOVE_TASK_BETWEEN_BOARDS': {
+      const { sourceBoard,
+        destinationBoard,
+        sourceTaskArr,
+        destinationTaskArr } = action.payload;
+      sourceBoard.taskCards = [...sourceTaskArr];
+      destinationBoard.taskCards = [...destinationTaskArr];
+      return {
+        ...state,
+        boards: {
+          ...state.boards,
+          [sourceBoard.id]: sourceBoard,
+          [destinationBoard.id]: destinationBoard
+        }
       };
     }
     default:

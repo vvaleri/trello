@@ -38,6 +38,7 @@ const Title = styled.div`
 const Content = styled.ul`
   display: flex;
   flex-direction: column;
+  min-height: 20px;
   list-style: none;
 `;
 

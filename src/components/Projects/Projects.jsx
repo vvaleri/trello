@@ -7,7 +7,7 @@ import { Main, Title, Head, Text, Buttons, Columns, Tip } from './projects.style
 import { StoreContext } from '../../context';
 import Waves from '../../assets/img/icon-title.svg';
 import { initialState, taskReducer } from '../../store';
-import { moveTask } from '../../dnd';
+// import { moveTask } from '../../dnd';
 
 export const Projects = () => {
   const [boardForm, setBoardForm] = useState(false);
@@ -32,14 +32,41 @@ export const Projects = () => {
 
   const onDragEnd = result => {
     const { destination, source, draggableId } = result;
-    const newArrTask = moveTask(state, destination, source, draggableId);
+    // const newArrTask = moveTask(state, destination, source, draggableId);
+    if (!destination) {
+      return;
+    }
 
-    dispatch({
-      type: 'MOVE TASK',
-      payload: { boardId: source.droppableId, newArrTask }
-    });
+    if (destination.droppableId === source.droppableId
+          && destination.index === source.index) {
+      return;
+    }
 
-    // console.log('destination', destination, 'source', source, draggableId);
+    const sourceBoard = state.boards[source.droppableId];
+    const destinationBoard = state.boards[destination.droppableId];
+
+    const sourceTaskArr = Array.from(sourceBoard.taskCards);
+    const movedTask = sourceTaskArr.filter(task => task.id === draggableId)[0];
+
+    if (sourceBoard === destinationBoard) {
+      sourceTaskArr.splice(source.index, 1);
+      sourceTaskArr.splice(destination.index, 0, movedTask);
+
+      dispatch({
+        type: 'MOVE_TASK',
+        payload: { sourceBoard, sourceTaskArr }
+      });
+    } else {
+      const destinationTaskArr = Array.from(destinationBoard.taskCards);
+      sourceTaskArr.splice(source.index, 1);
+
+      destinationTaskArr.splice(destination.index, 0, movedTask);
+
+      dispatch({
+        type: 'MOVE_TASK_BETWEEN_BOARDS',
+        payload: { sourceBoard, destinationBoard, sourceTaskArr, destinationTaskArr }
+      });
+    }
   };
 
   return (
