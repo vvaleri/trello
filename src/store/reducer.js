@@ -3,6 +3,7 @@ const ADD_BOARD = 'ADD_BOARD';
 const DELETE_BOARD = 'DELETE_BOARD';
 const MOVE_TASK = 'MOVE_TASK';
 const MOVE_TASK_BETWEEN_BOARDS = 'MOVE_TASK_BETWEEN_BOARDS';
+const MOVE_BOARD = 'MOVE_BOARD';
 
 export const taskReducer = (state, action) => {
   switch (action.type) {
@@ -27,6 +28,7 @@ export const taskReducer = (state, action) => {
       return {
         ...state,
         boardsId: state.boardsId.filter(item => item !== action.payload)
+        // to do: delete object
       };
     case MOVE_TASK: {
       const { sourceBoard, sourceTaskArr } = action.payload;
@@ -50,6 +52,12 @@ export const taskReducer = (state, action) => {
           [sourceBoard.id]: sourceBoard,
           [destinationBoard.id]: destinationBoard
         }
+      };
+    }
+    case MOVE_BOARD: {
+      return {
+        ...state,
+        boardsId: [...action.payload]
       };
     }
     default:

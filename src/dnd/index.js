@@ -1,11 +1,12 @@
-import { moveTask, moveTaskBetweenBoards } from '../store/actions';
+import { moveTask, moveTaskBetweenBoards, moveBoard } from '../store/actions';
 
 export const handleDragnDrop = (
   state,
   dispatch,
   destination,
   source,
-  draggableId
+  draggableId,
+  type
 ) => {
   if (!destination) {
     return;
@@ -13,6 +14,15 @@ export const handleDragnDrop = (
 
   if (destination.droppableId === source.droppableId
         && destination.index === source.index) {
+    return;
+  }
+
+  if (type === 'board') {
+    const newBoardsId = Array.from(state.boardsId);
+    newBoardsId.splice(source.index, 1);
+    newBoardsId.splice(destination.index, 0, draggableId);
+
+    dispatch(moveBoard(newBoardsId));
     return;
   }
 

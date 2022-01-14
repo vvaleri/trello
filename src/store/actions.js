@@ -7,3 +7,5 @@ export const deleteBoard = payload => ({ type: 'DELETE_BOARD', payload });
 export const moveTask = payload => ({ type: 'MOVE_TASK', payload });
 
 export const moveTaskBetweenBoards = payload => ({ type: 'MOVE_TASK_BETWEEN_BOARDS', payload });
+
+export const moveBoard = payload => ({ type: 'MOVE_BOARD', payload });

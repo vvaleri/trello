@@ -1,5 +1,5 @@
 import React, { useReducer, useMemo, useState } from 'react';
-import { DragDropContext } from 'react-beautiful-dnd';
+import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 import { Button } from '../UI/Button/Button';
 import { Board } from '../Board/Board';
 import { InputForm } from '../InputForm/InputForm';
@@ -27,8 +27,8 @@ export const Projects = () => {
   };
 
   const onDragEnd = result => {
-    const { destination, source, draggableId } = result;
-    handleDragnDrop(state, dispatch, destination, source, draggableId);
+    const { destination, source, draggableId, type } = result;
+    handleDragnDrop(state, dispatch, destination, source, draggableId, type);
   };
 
   return (
@@ -57,18 +57,35 @@ export const Projects = () => {
             />
           </Buttons>
         </Head>
-        <Columns>
-          <DragDropContext onDragEnd={onDragEnd}>
-            {
-            state.boardsId.length
-              ? state.boardsId.map(item => {
-                const column = state.boards[item];
-                return <Board key={item} column={column} remove={removeBoard} />;
-              })
-              : <Tip>Здесь будут отображаться доски с задачами</Tip>
-        }
-          </DragDropContext>
-        </Columns>
+
+        <DragDropContext onDragEnd={onDragEnd}>
+          <Droppable droppableId="boards" direction="horizontal" type="board">
+            {provided => (
+              <Columns
+                ref={provided.innerRef}
+                {...provided.droppableProps}
+              >
+                {
+                  state.boardsId.length
+                    ? state.boardsId.map((item, index) => {
+                      const column = state.boards[item];
+                      return (
+                        <Board
+                          key={item}
+                          column={column}
+                          index={index}
+                          remove={removeBoard}
+                        />
+                      );
+                    })
+                    : <Tip>Здесь будут отображаться доски с задачами</Tip>
+                }
+                {provided.placeholder}
+              </Columns>
+            )}
+          </Droppable>
+        </DragDropContext>
+
       </Main>
     </StoreContext.Provider>
   );
