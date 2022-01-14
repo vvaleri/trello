@@ -81,7 +81,7 @@ export const initialState = {
         },
         {
           id: '2-board-4',
-          text: 'Статистика по икочникам звонка'
+          text: 'Статистика по источникам звонка'
         },
         {
           id: '3-board-4',

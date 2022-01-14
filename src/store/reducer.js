@@ -28,7 +28,6 @@ export const taskReducer = (state, action) => {
       return {
         ...state,
         boardsId: state.boardsId.filter(item => item !== action.payload)
-        // to do: delete object
       };
     case MOVE_TASK: {
       const { sourceBoard, sourceTaskArr } = action.payload;

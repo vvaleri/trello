@@ -22,7 +22,10 @@ export const Task = ({ card, index }) => (
         </PhotoPanel>
         <Text>
           <p>
-            <span>#number: &#8288;</span>
+            <span>
+              {index + 1}
+              : &#8288;
+            </span>
             {card.text}
           </p>
         </Text>
