@@ -37,7 +37,6 @@ const MainButton = styled.button`
       :focus {
         background-color: #7EA4E7;
         opacity: 1;
-    
       }
     }
   `}

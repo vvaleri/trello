@@ -1,6 +1,7 @@
 import React, { useReducer, useMemo, useState } from 'react';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 import { Button } from '../UI/Button/Button';
+import { Breadcrumbs } from '../UI/Breadcrumbs/Breadcrumbs';
 import { Board } from '../Board/Board';
 import { InputForm } from '../InputForm/InputForm';
 import { initialState } from '../../store';
@@ -34,7 +35,10 @@ export const Projects = () => {
   return (
     <StoreContext.Provider value={stateValue}>
       <Main>
-        <Title>Проекты</Title>
+        <Title>
+          <h1>Проекты</h1>
+          <Breadcrumbs currentPage="Процессы" />
+        </Title>
         <Head>
           <Text>
             <img src={Waves} alt="иконка волн" />

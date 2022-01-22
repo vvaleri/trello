@@ -4,10 +4,14 @@ const Main = styled.main`
   padding: 40px;
 `;
 
-const Title = styled.h1`
+const Title = styled.div`
+  display: flex;
   margin-bottom: 35px;
-  font-size: 24px;
-  font-family: RubikBold, sans-serif;
+
+  h1 {
+    font-size: 24px;
+    font-family: RubikBold, sans-serif;
+  }
 `;
 
 const Head = styled.div`
