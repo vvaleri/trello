@@ -1,7 +1,12 @@
 import styled from 'styled-components';
 
 const Main = styled.main`
-  padding: 40px;
+  position: relative;
+  padding-top: 40px;
+  padding-bottom: 40px;
+  padding-right: 40px;
+  padding-left: 120px;
+
 `;
 
 const Title = styled.div`

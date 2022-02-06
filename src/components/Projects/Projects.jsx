@@ -4,6 +4,7 @@ import { Button } from '../UI/Button/Button';
 import { Breadcrumbs } from '../UI/Breadcrumbs/Breadcrumbs';
 import { Board } from '../Board/Board';
 import { InputForm } from '../InputForm/InputForm';
+import { Panel } from '../Panel/Panel';
 import { initialState } from '../../store';
 import { StoreContext } from '../../context';
 import { taskReducer } from '../../store/reducer';
@@ -35,6 +36,7 @@ export const Projects = () => {
   return (
     <StoreContext.Provider value={stateValue}>
       <Main>
+        <Panel />
         <Title>
           <h1>Проекты</h1>
           <Breadcrumbs currentPage="Процессы" />
