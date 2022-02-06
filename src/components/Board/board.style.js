@@ -4,6 +4,15 @@ const Container = styled.div`
   margin-right: 40px;
   flex: 0 0 290px;
 
+  @media (max-width: 1023px) {
+    flex: 0 0 230px;
+  }
+
+  @media (max-width: 374px) {
+    flex: 0 0 210px;
+    margin-right: 20px;
+  }
+
   &.done {
     p {
       text-decoration: line-through;

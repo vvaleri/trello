@@ -30,6 +30,10 @@ const Form = styled.form`
   border-radius: 4px;
   opacity: 0;
   transition: opacity 0.4s cubic-bezier(0.77, 0, 0.17, 1);
+
+  @media (max-width: 767px) {
+    padding-top: 12px;
+  }
 `;
 
 const Textarea = styled.textarea`

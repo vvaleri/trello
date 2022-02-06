@@ -5,8 +5,16 @@ const Container = styled.div`
   align-items: center;
   padding-left: 25px;
 
+  @media (max-width: 767px) {
+    padding-left: 0px;
+  }
+
+  @media (max-width: 374px) {
+    font-size: 14px;
+  }
+
   img {
-      margin-right: 10px;
+    margin-right: 10px;
   }
 `;
 

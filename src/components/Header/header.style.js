@@ -6,6 +6,11 @@ const Container = styled.header`
   justify-content: space-between;
   background-color: #253F4B;
   color: #fff;
+
+  @media (max-width: 767px) {
+    padding-top: 20px;
+    padding-bottom: 20px;
+  }
 `;
 
 const Logo = styled.div`
@@ -18,6 +23,10 @@ const Logo = styled.div`
 
   span {
     font-size: 18px;
+
+    @media (max-width: 767px) {
+      display: none;
+    }
   }
 `;
 
@@ -30,8 +39,16 @@ const AccountInfo = styled.div`
   align-items: center;
   margin-right: 35px;
 
+  @media (max-width: 767px) {
+    margin-right: 10px;
+  }
+
   span {
     margin-right: 20px;
+
+    @media (max-width: 767px) {
+      margin-right: 10px;
+    }
   }
 `;
 
@@ -42,6 +59,16 @@ const User = styled.div`
   span {
     margin-right: 5px;
     margin-left: 5px;
+
+    @media (max-width: 767px) {
+      display: none;
+    }
+  }
+
+  img {
+    @media (max-width: 767px) {
+      margin-left: 5px;
+    }
   }
 `;
 
