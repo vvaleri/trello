@@ -7,9 +7,9 @@ import SquaresSVG from '../../assets/img/icon-squares.svg';
 import QueastionSVG from '../../assets/img/icon-question.svg';
 
 const buttons = [
-  { src: SearchSVG, alt: 'white magnifier' },
-  { src: PlusSVG, alt: 'white plus' },
-  { src: SquaresSVG, alt: 'white Rubik`s Cube' }
+  { src: SearchSVG, alt: 'белая лупа' },
+  { src: PlusSVG, alt: 'белый знак плюс' },
+  { src: SquaresSVG, alt: 'белый Кубик Рубика' }
 ];
 
 export const Panel = () => (
@@ -23,6 +23,6 @@ export const Panel = () => (
         </Button>
       ))}
     </Buttons>
-    <Button><img src={QueastionSVG} alt="white question within circle" /></Button>
+    <Button><img src={QueastionSVG} alt="белый знак вопроса внутри круга" /></Button>
   </Container>
 );
