@@ -1,31 +1,19 @@
 import React, { useState } from 'react';
-import { nanoid } from 'nanoid';
 import { Button } from '../UI/Button/Button';
 import { Container, Form, Textarea, Buttons } from './inputForm.style';
 import Close from '../../assets/img/icon-close.svg';
-import TitleImg from '../../assets/img/icon-column-1.svg';
 
-export const InputForm = ({ visible, setVisible, createTask, createBoard, type, ...props }) => {
+export const InputForm = ({ visible, type, onClose, onCreate, ...props }) => {
   const [text, setText] = useState('');
 
   const handleForm = e => {
     e.preventDefault();
-    if (type === 'task') {
-      const newTask = {
-        id: nanoid(),
-        text
-      };
-      createTask(newTask);
-    }
-    if (type === 'board') {
-      const newBoard = {
-        id: nanoid(),
-        src: TitleImg,
-        title: text,
-        taskCards: []
-      };
-      createBoard(newBoard);
-    }
+    onCreate(text);
+    setText('');
+  };
+
+  const handleFormClose = () => {
+    onClose();
     setText('');
   };
 
@@ -40,7 +28,7 @@ export const InputForm = ({ visible, setVisible, createTask, createBoard, type, 
         />
         <Buttons>
           <Button main>{type === 'board' ? 'Добавить' : 'Добавить задачу'}</Button>
-          <Button type="button" onClick={() => setVisible(false)}>
+          <Button type="button" onClick={handleFormClose}>
             <img src={Close} alt="Отмена" />
           </Button>
         </Buttons>

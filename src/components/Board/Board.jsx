@@ -2,6 +2,7 @@
 // ^ provided and index from beautiful-dnd
 import React, { useState, useContext } from 'react';
 import { Droppable, Draggable } from 'react-beautiful-dnd';
+import { nanoid } from 'nanoid';
 import { Task } from '../Task/Task';
 import { Button } from '../UI/Button/Button';
 import { InputForm } from '../InputForm/InputForm';
@@ -11,16 +12,22 @@ import { Container, Head, Title, Content, Footer } from './board.style';
 import Delete from '../../assets/img/icon-delete.svg';
 import Add from '../../assets/img/icon-add.svg';
 
-export const Board = ({ column, remove, index }) => {
-  const [taskForm, setTaskForm] = useState(false);
+export const Board = ({ column, onRemove, index }) => {
+  const [isTaskFormShow, setIsTaskFormShow] = useState(false);
 
-  const openForm = () => setTaskForm(true);
+  const handleOpenForm = () => setIsTaskFormShow(true);
+
+  const handleCloseForm = () => setIsTaskFormShow(false);
 
   const { dispatch } = useContext(StoreContext);
 
-  const createTask = newTask => {
+  const handleCreateTask = text => {
+    const newTask = {
+      id: nanoid(),
+      text
+    };
     dispatch(addTask({ boardId: column.id, newTask }));
-    setTaskForm(false);
+    setIsTaskFormShow(false);
   };
 
   return (
@@ -36,7 +43,7 @@ export const Board = ({ column, remove, index }) => {
               <img src={column.src} alt="icon" />
               {column.title}
             </Title>
-            <Button onClick={() => remove(column.id)}>
+            <Button onClick={() => onRemove(column.id)}>
               <img src={Delete} alt="удалить" />
             </Button>
           </Head>
@@ -58,14 +65,14 @@ export const Board = ({ column, remove, index }) => {
           </Droppable>
 
           <Footer>
-            <Button grey onClick={openForm}>
+            <Button grey onClick={handleOpenForm}>
               <img src={Add} alt="добавить задачу" />
             </Button>
             <InputForm
               type="task"
-              visible={taskForm}
-              setVisible={setTaskForm}
-              createTask={createTask}
+              visible={isTaskFormShow}
+              onClose={handleCloseForm}
+              onCreate={handleCreateTask}
             />
           </Footer>
         </Container>

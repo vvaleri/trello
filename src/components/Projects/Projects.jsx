@@ -1,5 +1,6 @@
 import React, { useReducer, useMemo, useState } from 'react';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
+import { nanoid } from 'nanoid';
 import { Button } from '../UI/Button/Button';
 import { Breadcrumbs } from '../UI/Breadcrumbs/Breadcrumbs';
 import { Board } from '../Board/Board';
@@ -11,24 +12,35 @@ import { taskReducer } from '../../store/reducer';
 import { handleDragnDrop } from '../../dnd';
 import { addBoard, deleteBoard } from '../../store/actions';
 import { Main, Title, Head, Text, Buttons, Columns, Tip } from './projects.style';
+import TitleImg from '../../assets/img/icon-column-1.svg';
 import Waves from '../../assets/img/icon-title.svg';
 
 export const Projects = () => {
-  const [boardForm, setBoardForm] = useState(false);
+  const [isBoardFormShow, setIsBoardFormShow] = useState(false);
 
   const [state, dispatch] = useReducer(taskReducer, initialState);
   const stateValue = useMemo(() => ({ dispatch, state }), []);
 
-  const createBoard = newBoard => {
+  const handleCreateBoard = text => {
+    const newBoard = {
+      id: nanoid(),
+      src: TitleImg,
+      title: text,
+      taskCards: []
+    };
     dispatch(addBoard({ newBoard }));
-    setBoardForm(false);
+    setIsBoardFormShow(false);
   };
 
-  const removeBoard = id => {
+  const handleRemoveBoard = id => {
     dispatch(deleteBoard(id));
   };
 
-  const onDragEnd = result => {
+  const handleBoardFormShow = () => setIsBoardFormShow(true);
+
+  const handleBoardFormClose = () => setIsBoardFormShow(false);
+
+  const handleDragEnd = result => {
     const { destination, source, draggableId, type } = result;
     handleDragnDrop(state, dispatch, destination, source, draggableId, type);
   };
@@ -50,21 +62,21 @@ export const Projects = () => {
             <Button
               main
               type="button"
-              onClick={() => setBoardForm(true)}
+              onClick={handleBoardFormShow}
             >
               Добавить столбец
             </Button>
             <InputForm
               main
               type="board"
-              visible={boardForm}
-              setVisible={setBoardForm}
-              createBoard={createBoard}
+              visible={isBoardFormShow}
+              onClose={handleBoardFormClose}
+              onCreate={handleCreateBoard}
             />
           </Buttons>
         </Head>
 
-        <DragDropContext onDragEnd={onDragEnd}>
+        <DragDropContext onDragEnd={handleDragEnd}>
           <Droppable droppableId="boards" direction="horizontal" type="board">
             {provided => (
               <Columns
@@ -80,7 +92,7 @@ export const Projects = () => {
                           key={item}
                           column={column}
                           index={index}
-                          remove={removeBoard}
+                          onRemove={handleRemoveBoard}
                         />
                       );
                     })
