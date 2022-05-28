@@ -55,7 +55,7 @@ export const Projects = () => {
         </Title>
         <Head>
           <Text>
-            <img src={Waves} alt="иконка волн" />
+            <img src={Waves} alt="три чёрные волны друг под другом" />
             <h2>Процессы проекта CRM - система</h2>
           </Text>
           <Buttons>

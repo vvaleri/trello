@@ -40,7 +40,10 @@ export const Board = ({ index, column, onRemove }) => {
         >
           <Head {...provided.dragHandleProps}>
             <Title>
-              <img src={column.src} alt="icon" />
+              <img
+                src={column.src}
+                alt={`синий круг, знак доски ${column.title}`}
+              />
               {column.title}
             </Title>
             <Button onClick={onRemove(column.id)}>
@@ -50,15 +53,10 @@ export const Board = ({ index, column, onRemove }) => {
 
           <Droppable droppableId={column.id} type="task">
             {provided => (
-              <Content
-                ref={provided.innerRef}
-                {...provided.droppableProps}
-              >
-                {
-                    column.taskCards.map((card, index) => (
-                      <Task key={card.id} card={card} index={index} />
-                    ))
-                  }
+              <Content ref={provided.innerRef} {...provided.droppableProps}>
+                {column.taskCards.map((card, index) => (
+                  <Task key={card.id} card={card} index={index} />
+                ))}
                 {provided.placeholder}
               </Content>
             )}
@@ -76,7 +74,6 @@ export const Board = ({ index, column, onRemove }) => {
             />
           </Footer>
         </Container>
-
       )}
     </Draggable>
   );

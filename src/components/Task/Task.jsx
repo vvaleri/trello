@@ -18,7 +18,7 @@ export const Task = ({ card, index }) => (
             <img src={FirstPerson} alt="первый исполнитель" />
             <img src={SecondPerson} alt="второй исполнитель" />
           </Photos>
-          <img src={Indicator} alt="индикатор прогресса" />
+          <img src={Indicator} alt="индикатор: зелёные, оранжевые, серые стрелки вправо" />
         </PhotoPanel>
         <Text>
           <p>
