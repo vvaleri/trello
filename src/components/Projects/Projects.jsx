@@ -32,7 +32,7 @@ export const Projects = () => {
     setIsBoardFormShow(false);
   };
 
-  const handleRemoveBoard = id => {
+  const handleRemoveBoard = id => () => {
     dispatch(deleteBoard(id));
   };
 
